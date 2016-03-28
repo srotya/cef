@@ -84,7 +84,7 @@ public class TestCEFInterceptor {
 		String msg = "CEF:0|security|threatmanager|1.0|100|detected a| in message|10|src=10.0.0.1 act=blocked a | dst=1.1.1.1";
 		Event event = EventBuilder.withBody(msg, Charset.forName("utf-8"), new HashMap<>());
 		if(intercepter.intercept(event)!=null) {
-			fail("Not parsed as a valid event");
+			fail("Parsed invalid event");
 		}
 	}
 	
@@ -106,6 +106,24 @@ public class TestCEFInterceptor {
 		assertEquals("10.0.0.1", event.getHeaders().get("src"));
 		assertEquals("blocked a \\=", event.getHeaders().get("act"));
 		assertEquals("1.1.1.1", event.getHeaders().get("dst"));
+	}
+	
+	@Test
+	public void testBadExtension1() {
+		String msg = "CEF:0|security|threatmanager|1.0|100|detected a = in message|10|src=10.0.0.1 act=blocked a \\= dst=";
+		Event event = EventBuilder.withBody(msg, Charset.forName("utf-8"), new HashMap<>());
+		if(intercepter.intercept(event)!=null) {
+			fail("Parsed an invalid:"+event.getHeaders().get("dst"));
+		}
+	}
+	
+	@Test
+	public void testBadExtension2() {
+		String msg = "CEF:0|security|threatmanager|1.0|100|detected a = in message|10|src=10.0.0.1 act= dst=10";
+		Event event = EventBuilder.withBody(msg, Charset.forName("utf-8"), new HashMap<>());
+		if(intercepter.intercept(event)!=null) {
+			fail("Parsed an invalid:"+event.getHeaders().get("act"));
+		}
 	}
 	
 }

@@ -38,6 +38,7 @@ public class CEFIntercepter implements Interceptor {
 	private static final String cefExtension = "(?<!\\\\)=";
 	private static final Pattern cefPattern = Pattern.compile(cefRegex);
 	private static final Pattern extensionPattern = Pattern.compile(cefExtension);
+	private static Exception INVALID_VALUE_EXCEPTION = new Exception("Invalid value null exception, event is not correctly formatted");
 
 	@Override
 	public void close() {
@@ -75,8 +76,9 @@ public class CEFIntercepter implements Interceptor {
 	 * Parse CEF body to Flume {@link Event} headers
 	 * @param headers
 	 * @param cefBody
+	 * @throws Exception 
 	 */
-	public static void parseToCEFOptimized(Map<String, String> headers, String cefBody) {
+	public static void parseToCEFOptimized(Map<String, String> headers, String cefBody) throws Exception {
 		Matcher m = cefPattern.matcher(cefBody);
 		int counter = 0, index = 0;
 		while (counter < 7 && m.find()) {
@@ -126,11 +128,19 @@ public class CEFIntercepter implements Interceptor {
 			int v = value.lastIndexOf(" ");
 			if (v > 0) {
 				String temp = value.substring(0, v).trim();
+				if(temp==null || temp.isEmpty()) {
+					throw INVALID_VALUE_EXCEPTION;
+				}
 				headers.put(key, temp);
 				key = value.substring(v).trim();
+			}else {
+				throw INVALID_VALUE_EXCEPTION;
 			}
 		}
 		value = ext.substring(index);
+		if(value==null || value.isEmpty()) {
+			throw INVALID_VALUE_EXCEPTION;
+		}
 		headers.put(key, value);
 	}
 
