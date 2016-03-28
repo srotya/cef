@@ -71,6 +71,11 @@ public class CEFIntercepter implements Interceptor {
 		return events;
 	}
 
+	/**
+	 * Parse CEF body to Flume {@link Event} headers
+	 * @param headers
+	 * @param cefBody
+	 */
 	public static void parseToCEFOptimized(Map<String, String> headers, String cefBody) {
 		Matcher m = cefPattern.matcher(cefBody);
 		int counter = 0, index = 0;
