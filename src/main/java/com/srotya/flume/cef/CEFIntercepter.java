@@ -25,8 +25,15 @@ import java.util.regex.Pattern;
 import org.apache.flume.Event;
 import org.apache.flume.interceptor.Interceptor;
 
-public class CEFInterceptor implements Interceptor {
+public class CEFIntercepter implements Interceptor {
 
+	public static final String SEVERITY = "severity";
+	public static final String NAME = "name";
+	public static final String SIGNATURE = "signature";
+	public static final String VERSION = "version";
+	public static final String PRODUCT = "product";
+	public static final String VENDOR = "vendor";
+	public static final String CEF_VERSION = "cefVersion";
 	private static final String cefRegex = "(?<!\\\\)\\|";
 	private static final String cefExtension = "(?<!\\\\)=";
 	private static final Pattern cefPattern = Pattern.compile(cefRegex);
@@ -44,7 +51,11 @@ public class CEFInterceptor implements Interceptor {
 	public Event intercept(Event event) {
 		if(event.getBody()!=null) {
 			String cefBody = new String(event.getBody(), Charset.forName("utf-8"));
-			parseToCEFOptimized(event.getHeaders(), cefBody);
+			try{
+				parseToCEFOptimized(event.getHeaders(), cefBody);
+			}catch(Exception e) {
+				return null;
+			}
 		}
 		return event;
 	}
@@ -67,25 +78,25 @@ public class CEFInterceptor implements Interceptor {
 			String val = cefBody.substring(index, m.start());
 			switch (counter) {
 			case 0:
-				headers.put("cefVersion", ""+val.charAt(val.length() - 1));
+				headers.put(CEF_VERSION, ""+val.charAt(val.length() - 1));
 				break;
 			case 1:
-				headers.put("vendor", val);
+				headers.put(VENDOR, val);
 				break;
 			case 2:
-				headers.put("product", val);
+				headers.put(PRODUCT, val);
 				break;
 			case 3:
-				headers.put("version", val);
+				headers.put(VERSION, val);
 				break;
 			case 4:
-				headers.put("signature", val);
+				headers.put(SIGNATURE, val);
 				break;
 			case 5:
-				headers.put("name", val);
+				headers.put(NAME, val);
 				break;
 			case 6:
-				headers.put("severity", val);
+				headers.put(SEVERITY, String.valueOf(Integer.parseInt(val)));
 				break;
 			}
 			index = m.end();
