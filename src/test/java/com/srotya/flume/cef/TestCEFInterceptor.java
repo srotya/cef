@@ -32,11 +32,11 @@ import org.junit.Test;
  */
 public class TestCEFInterceptor {
 	
-	private CEFIntercepter intercepter;
+	private CEFInterceptor intercepter;
 	
 	@Before
 	public void before() {
-		intercepter = new CEFIntercepter();
+		intercepter = new CEFInterceptor();
 	}
 
 	@Test
@@ -46,13 +46,13 @@ public class TestCEFInterceptor {
 		if(intercepter.intercept(event)==null) {
 			fail("Not parsed as a valid event");
 		}
-		assertEquals("0", event.getHeaders().get(CEFIntercepter.CEF_VERSION));
-		assertEquals("security", event.getHeaders().get(CEFIntercepter.VENDOR));
-		assertEquals("threatmanager", event.getHeaders().get(CEFIntercepter.PRODUCT));
-		assertEquals("1.0", event.getHeaders().get(CEFIntercepter.VERSION));
-		assertEquals("100", event.getHeaders().get(CEFIntercepter.SIGNATURE));
-		assertEquals("worm successfully stopped", event.getHeaders().get(CEFIntercepter.NAME));
-		assertEquals("10", event.getHeaders().get(CEFIntercepter.SEVERITY));
+		assertEquals("0", event.getHeaders().get(CEFInterceptor.CEF_VERSION));
+		assertEquals("security", event.getHeaders().get(CEFInterceptor.VENDOR));
+		assertEquals("threatmanager", event.getHeaders().get(CEFInterceptor.PRODUCT));
+		assertEquals("1.0", event.getHeaders().get(CEFInterceptor.VERSION));
+		assertEquals("100", event.getHeaders().get(CEFInterceptor.SIGNATURE));
+		assertEquals("worm successfully stopped", event.getHeaders().get(CEFInterceptor.NAME));
+		assertEquals("10", event.getHeaders().get(CEFInterceptor.SEVERITY));
 		
 		assertEquals("10.0.0.1", event.getHeaders().get("src"));
 		assertEquals("2.1.2.2", event.getHeaders().get("dst"));
@@ -66,13 +66,13 @@ public class TestCEFInterceptor {
 		if(intercepter.intercept(event)==null) {
 			fail("Not parsed as a valid event");
 		}
-		assertEquals("0", event.getHeaders().get(CEFIntercepter.CEF_VERSION));
-		assertEquals("security", event.getHeaders().get(CEFIntercepter.VENDOR));
-		assertEquals("threatmanager", event.getHeaders().get(CEFIntercepter.PRODUCT));
-		assertEquals("1.0", event.getHeaders().get(CEFIntercepter.VERSION));
-		assertEquals("100", event.getHeaders().get(CEFIntercepter.SIGNATURE));
-		assertEquals("detected a \\| in message", event.getHeaders().get(CEFIntercepter.NAME));
-		assertEquals("10", event.getHeaders().get(CEFIntercepter.SEVERITY));
+		assertEquals("0", event.getHeaders().get(CEFInterceptor.CEF_VERSION));
+		assertEquals("security", event.getHeaders().get(CEFInterceptor.VENDOR));
+		assertEquals("threatmanager", event.getHeaders().get(CEFInterceptor.PRODUCT));
+		assertEquals("1.0", event.getHeaders().get(CEFInterceptor.VERSION));
+		assertEquals("100", event.getHeaders().get(CEFInterceptor.SIGNATURE));
+		assertEquals("detected a \\| in message", event.getHeaders().get(CEFInterceptor.NAME));
+		assertEquals("10", event.getHeaders().get(CEFInterceptor.SEVERITY));
 		
 		assertEquals("10.0.0.1", event.getHeaders().get("src"));
 		assertEquals("blocked a |", event.getHeaders().get("act"));
@@ -95,13 +95,13 @@ public class TestCEFInterceptor {
 		if(intercepter.intercept(event)==null) {
 			fail("Not parsed as a valid event");
 		}
-		assertEquals("0", event.getHeaders().get(CEFIntercepter.CEF_VERSION));
-		assertEquals("security", event.getHeaders().get(CEFIntercepter.VENDOR));
-		assertEquals("threatmanager", event.getHeaders().get(CEFIntercepter.PRODUCT));
-		assertEquals("1.0", event.getHeaders().get(CEFIntercepter.VERSION));
-		assertEquals("100", event.getHeaders().get(CEFIntercepter.SIGNATURE));
-		assertEquals("detected a = in message", event.getHeaders().get(CEFIntercepter.NAME));
-		assertEquals("10", event.getHeaders().get(CEFIntercepter.SEVERITY));
+		assertEquals("0", event.getHeaders().get(CEFInterceptor.CEF_VERSION));
+		assertEquals("security", event.getHeaders().get(CEFInterceptor.VENDOR));
+		assertEquals("threatmanager", event.getHeaders().get(CEFInterceptor.PRODUCT));
+		assertEquals("1.0", event.getHeaders().get(CEFInterceptor.VERSION));
+		assertEquals("100", event.getHeaders().get(CEFInterceptor.SIGNATURE));
+		assertEquals("detected a = in message", event.getHeaders().get(CEFInterceptor.NAME));
+		assertEquals("10", event.getHeaders().get(CEFInterceptor.SEVERITY));
 		
 		assertEquals("10.0.0.1", event.getHeaders().get("src"));
 		assertEquals("blocked a \\=", event.getHeaders().get("act"));

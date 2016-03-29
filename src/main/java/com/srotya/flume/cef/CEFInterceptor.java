@@ -22,10 +22,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.flume.Context;
 import org.apache.flume.Event;
 import org.apache.flume.interceptor.Interceptor;
 
-public class CEFIntercepter implements Interceptor {
+public class CEFInterceptor implements Interceptor {
 
 	public static final String SEVERITY = "severity";
 	public static final String NAME = "name";
@@ -142,6 +143,19 @@ public class CEFIntercepter implements Interceptor {
 			throw INVALID_VALUE_EXCEPTION;
 		}
 		headers.put(key, value);
+	}
+	
+	public static class Builder implements Interceptor.Builder {
+
+		@Override
+		public void configure(Context arg0) {
+		}
+
+		@Override
+		public Interceptor build() {
+			return new CEFInterceptor();
+		}
+		
 	}
 
 }
