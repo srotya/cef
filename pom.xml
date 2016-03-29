@@ -74,4 +74,10 @@
 			</plugin>
 		</plugins>
 	</build>
+	<scm>
+		<url>git@github.com:srotya/cef.git</url>
+		<connection>scm:git:ssh://git@github.com:srotya/cef.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:srotya/cef.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 </project>
