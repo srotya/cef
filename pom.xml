@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.srotya.flume</groupId>
 	<artifactId>cef</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<packaging>jar</packaging>
 
 	<name>cef</name>
@@ -124,6 +123,6 @@
 		<url>https://github.com/srotya/cef.git</url>
 		<connection>scm:git:git@github.com:srotya/cef.git</connection>
 		<developerConnection>scm:git:git@github.com:srotya/cef.git</developerConnection>
-		<tag>cef-0.0.1</tag>
+		<tag>cef-0.0.3</tag>
 	</scm>
 </project>
