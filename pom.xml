@@ -8,7 +8,22 @@
 	<packaging>jar</packaging>
 
 	<name>cef</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/srotya/cef</url>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>oss-snapshot</id>
+			<name>oss-snapshot</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+		<repository>
+			<id>oss-staging</id>
+			<name>oss-staging</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+			<uniqueVersion>true</uniqueVersion>
+		</repository>
+	</distributionManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
