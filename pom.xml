@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.srotya.flume</groupId>
@@ -8,6 +9,30 @@
 
 	<name>cef</name>
 	<url>https://github.com/srotya/cef</url>
+	<description>CEF Interceptor for Apache Flume to parse CEF Events over Syslog or other carrier protocols to Flume Event Headers</description>
+	
+	<scm>
+		<url>https://github.com/srotya/cef.git</url>
+		<connection>scm:git:git@github.com:srotya/cef.git</connection>
+		<developerConnection>scm:git:git@github.com:srotya/cef.git</developerConnection>
+		<tag>cef-0.0.1</tag>
+	</scm>
+	
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	
+	<developers>
+		<developer>
+			<id>asharma</id>
+			<name>Ambud Sharma</name>
+			<email>asharma525xi@gmail.com</email>
+			<organization>Srotya</organization>
+		</developer>
+	</developers>
 
 	<distributionManagement>
 		<snapshotRepository>
@@ -119,10 +144,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<scm>
-		<url>https://github.com/srotya/cef.git</url>
-		<connection>scm:git:git@github.com:srotya/cef.git</connection>
-		<developerConnection>scm:git:git@github.com:srotya/cef.git</developerConnection>
-		<tag>cef-0.0.1</tag>
-	</scm>
 </project>
