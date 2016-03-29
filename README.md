@@ -14,16 +14,27 @@ This version of CEF Interceptor is complaint with Apache Flume 1.6.0
 The parser has no external dependencies so all you need to do is download the latest JAR from Maven Central to the lib folder of your Flume installation and configure the interceptor as shown below and start sending some CEF logs:
 
 agent.sources = syslog
+
 agent.channels = memoryChannel
+
 agent.sinks = loggerSink
+
 agent.sources.syslog.type = syslogtcp
+
 agent.sources.syslog.port = 1514
+
 agent.sources.syslog.interceptors = cef
+
 agent.sources.syslog.interceptors.cef.type = com.srotya.flume.cef.CEFInterceptor$Builder
+
 agent.sources.syslog.channels = memoryChannel
+
 agent.sinks.loggerSink.type = logger
+
 agent.sinks.loggerSink.channel = memoryChannel
+
 agent.channels.memoryChannel.type = memory
+
 agent.channels.memoryChannel.capacity = 100
 
 # Bugs and Issues?
