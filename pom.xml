@@ -3,7 +3,7 @@
 
 	<groupId>com.srotya.flume</groupId>
 	<artifactId>cef</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>cef</name>
@@ -123,6 +123,6 @@
 		<url>https://github.com/srotya/cef.git</url>
 		<connection>scm:git:git@github.com:srotya/cef.git</connection>
 		<developerConnection>scm:git:git@github.com:srotya/cef.git</developerConnection>
-		<tag>cef-0.0.3</tag>
+		<tag>cef-0.0.1</tag>
 	</scm>
 </project>
