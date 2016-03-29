@@ -1,4 +1,4 @@
-# cef
+# CEF (Common Event Format)
 Common Event Format Interceptor for Apache Flume. Use this interceptor to parse and convert CEF payloads in Syslog to Flume Event headers.
 
 Common Event Format commonly known as CEF (pronounced sef), is the defacto format of HP ArcSight Logging and Security monitoring product family (including Loggers and ESM). It's also widely adopted by a few security products making parsing it critical to interpreting the logs and making sense out of them. CEF is usually transmitted over Syslog protocol as a payload.
