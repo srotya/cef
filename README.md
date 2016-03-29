@@ -11,6 +11,14 @@ Note: This parser currently doesn't validate events beyond CEF Prefix and Invali
 This version of CEF Interceptor is complaint with Apache Flume 1.6.0
 
 # How to use?
+Please download the published artifact from Maven Central, 0.0.10 or greater is current stable version.
+
+<dependency>
+    <groupId>com.srotya.flume</groupId>
+    <artifactId>cef</artifactId>
+    <version>0.0.10</version>
+</dependency>
+
 The parser has no external dependencies so all you need to do is download the latest JAR from Maven Central to the lib folder of your Flume installation and configure the interceptor as shown below and start sending some CEF logs:
 
 agent.sources = syslog
