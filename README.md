@@ -19,7 +19,7 @@ Please download the published artifact from Maven Central, 0.0.10 or greater is 
     <artifactId>cef</artifactId>
     <version>0.0.11</version>
 </dependency>
-```xml
+```
 
 The parser has no external dependencies so all you need to do is download the latest JAR from Maven Central to the lib folder of your Flume installation and configure the interceptor as shown below and start sending some CEF logs:
 
