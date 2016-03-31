@@ -11,7 +11,7 @@ Note: This parser currently doesn't validate events beyond CEF Prefix and Invali
 This version of CEF Interceptor is complaint with Apache Flume 1.6.0
 
 # How to use?
-Please download the published artifact from Maven Central, 0.0.10 or greater is current stable version.
+Please download the published artifact from Maven Central, 0.0.11 or greater is current stable version.
 
 ```xml
 <dependency>
