@@ -8,7 +8,7 @@
 	
 	<groupId>com.srotya.flume</groupId>
 	<artifactId>cef</artifactId>
-	<version>0.0.11</version>
+	<version>0.0.12-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>cef</name>
@@ -19,7 +19,7 @@
 		<url>https://github.com/srotya/cef.git</url>
 		<connection>scm:git:git@github.com:srotya/cef.git</connection>
 		<developerConnection>scm:git:git@github.com:srotya/cef.git</developerConnection>
-		<tag>cef-0.0.11</tag>
+		<tag>HEAD</tag>
 	</scm>
 	
 	<licenses>
