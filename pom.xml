@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.srotya.flume</groupId>
   <artifactId>cef</artifactId>
-  <version>0.0.13-SNAPSHOT</version>
+  <version>0.0.13</version>
   <packaging>jar</packaging>
   <name>cef</name>
   <description>CEF Interceptor for Apache Flume to parse CEF Events over Syslog or other carrier protocols to Flume Event Headers</description>
@@ -77,6 +77,6 @@
     <connection>scm:git:git@github.com:srotya/cef.git</connection>
     <developerConnection>scm:git:git@github.com:srotya/cef.git</developerConnection>
     <url>https://github.com/srotya/cef.git</url>
-    <tag>HEAD</tag>
+    <tag>cef-0.0.13</tag>
   </scm>
 </project>
