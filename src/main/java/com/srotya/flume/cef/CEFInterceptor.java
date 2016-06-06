@@ -18,28 +18,18 @@ package com.srotya.flume.cef;
 import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.flume.Context;
 import org.apache.flume.Event;
 import org.apache.flume.interceptor.Interceptor;
 
+/**
+ * An Apache Flume interceptor for parsing Common Event Format (CEF)
+ * events
+ * 
+ * @author ambudsharma
+ */
 public class CEFInterceptor implements Interceptor {
-
-	public static final String SEVERITY = "severity";
-	public static final String NAME = "name";
-	public static final String SIGNATURE = "signature";
-	public static final String VERSION = "version";
-	public static final String PRODUCT = "product";
-	public static final String VENDOR = "vendor";
-	public static final String CEF_VERSION = "cefVersion";
-	private static final String cefRegex = "(?<!\\\\)\\|";
-	private static final String cefExtension = "(?<!\\\\)=";
-	private static final Pattern cefPattern = Pattern.compile(cefRegex);
-	private static final Pattern extensionPattern = Pattern.compile(cefExtension);
-	private static Exception INVALID_VALUE_EXCEPTION = new Exception("Invalid value null exception, event is not correctly formatted");
 
 	@Override
 	public void close() {
@@ -54,7 +44,7 @@ public class CEFInterceptor implements Interceptor {
 		if(event.getBody()!=null) {
 			String cefBody = new String(event.getBody(), Charset.forName("utf-8"));
 			try{
-				parseToCEFOptimized(event.getHeaders(), cefBody);
+				Utils.parseToCEFOptimized(event.getHeaders(), cefBody);
 			}catch(Exception e) {
 				return null;
 			}
@@ -74,77 +64,10 @@ public class CEFInterceptor implements Interceptor {
 	}
 
 	/**
-	 * Parse CEF body to Flume {@link Event} headers
-	 * @param headers
-	 * @param cefBody
-	 * @throws Exception 
+	 * Builder for {@link CEFInterceptor}
+	 * 
+	 * @author ambudsharma
 	 */
-	public static void parseToCEFOptimized(Map<String, String> headers, String cefBody) throws Exception {
-		Matcher m = cefPattern.matcher(cefBody);
-		int counter = 0, index = 0;
-		while (counter < 7 && m.find()) {
-			String val = cefBody.substring(index, m.start());
-			switch (counter) {
-			case 0:
-				headers.put(CEF_VERSION, ""+val.charAt(val.length() - 1));
-				break;
-			case 1:
-				headers.put(VENDOR, val);
-				break;
-			case 2:
-				headers.put(PRODUCT, val);
-				break;
-			case 3:
-				headers.put(VERSION, val);
-				break;
-			case 4:
-				headers.put(SIGNATURE, val);
-				break;
-			case 5:
-				headers.put(NAME, val);
-				break;
-			case 6:
-				headers.put(SEVERITY, String.valueOf(Integer.parseInt(val)));
-				break;
-			}
-			index = m.end();
-			counter++;
-		}
-		// process extensions
-		String ext = cefBody.substring(index);
-		m = extensionPattern.matcher(ext);
-		index = 0;
-		String key = null;
-		String value = null;
-		while (m.find()) {
-			if (key == null) {
-				key = ext.substring(index, m.start());
-				index = m.end();
-				if (!m.find()) {
-					break;
-				}
-			}
-			value = ext.substring(index, m.start());
-			index = m.end();
-			int v = value.lastIndexOf(" ");
-			if (v > 0) {
-				String temp = value.substring(0, v).trim();
-				if(temp==null || temp.isEmpty()) {
-					throw INVALID_VALUE_EXCEPTION;
-				}
-				headers.put(key, temp);
-				key = value.substring(v).trim();
-			}else {
-				throw INVALID_VALUE_EXCEPTION;
-			}
-		}
-		value = ext.substring(index);
-		if(value==null || value.isEmpty()) {
-			throw INVALID_VALUE_EXCEPTION;
-		}
-		headers.put(key, value);
-	}
-	
 	public static class Builder implements Interceptor.Builder {
 
 		@Override
