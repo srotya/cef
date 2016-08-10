@@ -46,7 +46,7 @@ public class Utils {
 	 * 
 	 * @param headers
 	 * @param cefBody
-	 * @throws Exception
+	 * @throws ParseException
 	 */
 	public static void parseToCEFOptimized(Map<String, String> headers, String cefBody) throws ParseException {
 		try {
