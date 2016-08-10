@@ -37,77 +37,90 @@ public class Utils {
 	static final String cefExtension = "(?<!\\\\)=";
 	static final Pattern cefPattern = Pattern.compile(cefRegex);
 	static final Pattern extensionPattern = Pattern.compile(cefExtension);
-	static Exception INVALID_VALUE_EXCEPTION = new Exception("Invalid value null exception, event is not correctly formatted");
+	static ParseException INVALID_VALUE_EXCEPTION = new ParseException(
+			"Invalid value null exception, event is not correctly formatted");
+	static ParseException INVALID_DATA_EXCEPTION = new ParseException("Invalid data, event is not correctly formatted");
+
 	/**
 	 * Parse CEF body to {@link Map} of headers
+	 * 
 	 * @param headers
 	 * @param cefBody
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public static void parseToCEFOptimized(Map<String, String> headers, String cefBody) throws Exception {
-		Matcher m = cefPattern.matcher(cefBody);
-		int counter = 0, index = 0;
-		while (counter < 7 && m.find()) {
-			String val = cefBody.substring(index, m.start());
-			switch (counter) {
-			case 0:
-				headers.put(CEF_VERSION, ""+val.charAt(val.length() - 1));
-				break;
-			case 1:
-				headers.put(VENDOR, val);
-				break;
-			case 2:
-				headers.put(PRODUCT, val);
-				break;
-			case 3:
-				headers.put(VERSION, val);
-				break;
-			case 4:
-				headers.put(SIGNATURE, val);
-				break;
-			case 5:
-				headers.put(NAME, val);
-				break;
-			case 6:
-				headers.put(SEVERITY, String.valueOf(Integer.parseInt(val)));
-				break;
-			}
-			index = m.end();
-			counter++;
-		}
-		// process extensions
-		String ext = cefBody.substring(index);
-		m = extensionPattern.matcher(ext);
-		index = 0;
-		String key = null;
-		String value = null;
-		while (m.find()) {
-			if (key == null) {
-				key = ext.substring(index, m.start());
-				index = m.end();
-				if (!m.find()) {
+	public static void parseToCEFOptimized(Map<String, String> headers, String cefBody) throws ParseException {
+		try {
+			Matcher m = cefPattern.matcher(cefBody);
+			int counter = 0, index = 0;
+			while (counter < 7 && m.find()) {
+				String val = cefBody.substring(index, m.start());
+				switch (counter) {
+				case 0:
+					headers.put(CEF_VERSION, "" + val.charAt(val.length() - 1));
+					break;
+				case 1:
+					headers.put(VENDOR, val);
+					break;
+				case 2:
+					headers.put(PRODUCT, val);
+					break;
+				case 3:
+					headers.put(VERSION, val);
+					break;
+				case 4:
+					headers.put(SIGNATURE, val);
+					break;
+				case 5:
+					headers.put(NAME, val);
+					break;
+				case 6:
+					headers.put(SEVERITY, String.valueOf(Integer.parseInt(val)));
 					break;
 				}
+				index = m.end();
+				counter++;
 			}
-			value = ext.substring(index, m.start());
-			index = m.end();
-			int v = value.lastIndexOf(" ");
-			if (v > 0) {
-				String temp = value.substring(0, v).trim();
-				if(temp==null || temp.isEmpty()) {
+			if (headers.size() < 6) {
+				throw INVALID_DATA_EXCEPTION;
+			}
+			// process extensions
+			String ext = cefBody.substring(index);
+			m = extensionPattern.matcher(ext);
+			index = 0;
+			String key = null;
+			String value = null;
+			while (m.find()) {
+				if (key == null) {
+					key = ext.substring(index, m.start());
+					index = m.end();
+					if (!m.find()) {
+						break;
+					}
+				}
+				value = ext.substring(index, m.start());
+				index = m.end();
+				int v = value.lastIndexOf(" ");
+				if (v > 0) {
+					String temp = value.substring(0, v).trim();
+					if (temp == null || temp.isEmpty()) {
+						throw INVALID_VALUE_EXCEPTION;
+					}
+					headers.put(key, temp);
+					key = value.substring(v).trim();
+				} else {
 					throw INVALID_VALUE_EXCEPTION;
 				}
-				headers.put(key, temp);
-				key = value.substring(v).trim();
-			}else {
+			}
+			value = ext.substring(index);
+			if (value == null || value.isEmpty()) {
 				throw INVALID_VALUE_EXCEPTION;
 			}
+			headers.put(key, value);
+		} catch (ParseException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new ParseException("CEF Parsing failed", e);
 		}
-		value = ext.substring(index);
-		if(value==null || value.isEmpty()) {
-			throw INVALID_VALUE_EXCEPTION;
-		}
-		headers.put(key, value);
 	}
 
 }

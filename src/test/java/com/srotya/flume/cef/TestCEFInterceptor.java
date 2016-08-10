@@ -109,6 +109,15 @@ public class TestCEFInterceptor {
 	}
 	
 	@Test
+	public void testBadData() {
+		String msg = " aaa ";
+		Event event = EventBuilder.withBody(msg, Charset.forName("utf-8"), new HashMap<>());
+		if(intercepter.intercept(event)!=null) {
+			fail("Can't parsed an invalid event");
+		}
+	}
+	
+	@Test
 	public void testBadExtension1() {
 		String msg = "CEF:0|security|threatmanager|1.0|100|detected a = in message|10|src=10.0.0.1 act=blocked a \\= dst=";
 		Event event = EventBuilder.withBody(msg, Charset.forName("utf-8"), new HashMap<>());
